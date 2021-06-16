@@ -1,4 +1,4 @@
-package com.example.zemogatest.presentation.post.list.adapter
+package com.example.zemogatest.presentation.base
 
 import androidx.recyclerview.widget.DiffUtil
 

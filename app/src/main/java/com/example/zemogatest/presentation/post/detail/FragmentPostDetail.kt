@@ -15,8 +15,10 @@ import com.example.zemogatest.databinding.FragmentPostDetailBinding
 import com.example.zemogatest.presentation.post.detail.adapter.PostCommentUI
 import com.example.zemogatest.presentation.post.detail.adapter.PostDetailAdapter
 import com.example.zemogatest.util.MarginItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class FragmentPostDetail : Fragment() {
 
     private var binding: FragmentPostDetailBinding? = null

@@ -1,0 +1,9 @@
+{
+  "baseUrl": "http://10.0.2.2:3000",
+  "log": {
+    "level": 2
+  },
+  "serviceTimeout": 30,
+  "connectionTimeout": 10,
+  "lastModified": "2021-05-15T19:56:51.074Z"
+}

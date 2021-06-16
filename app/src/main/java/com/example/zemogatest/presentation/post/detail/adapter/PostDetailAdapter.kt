@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zemogatest.databinding.PostDetailListItemBinding
-import com.example.zemogatest.presentation.post.list.adapter.CounterDiffUtil
-import com.example.zemogatest.presentation.post.list.adapter.Identifier
+import com.example.zemogatest.presentation.base.CounterDiffUtil
+import com.example.zemogatest.presentation.base.Identifier
 
 class PostDetailAdapter(
     private val items: MutableList<PostCommentUI> = mutableListOf()

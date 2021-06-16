@@ -9,7 +9,9 @@ import com.example.zemogatest.databinding.ActivityAppbarFabContainerBinding
 import com.example.zemogatest.presentation.post.list.FragmentPostTabs
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAppbarFabContainerBinding
 

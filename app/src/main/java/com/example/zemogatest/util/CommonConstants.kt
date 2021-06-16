@@ -9,5 +9,5 @@ const val X = "x"
 const val STRING_PARAM = "%s"
 const val DOT = "."
 
-const val DATABASE_NAME = "CornerShopDB"
+const val DATABASE_NAME = "ZemogaDB"
 const val ACCOUNT_MOCK = "Account mock"

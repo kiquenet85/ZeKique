@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.zemogatest.presentation.base.CounterDiffUtil
+import com.example.zemogatest.presentation.base.Identifier
 import com.example.zemogatest.databinding.PostListItemBinding
 
 class PostAdapter(

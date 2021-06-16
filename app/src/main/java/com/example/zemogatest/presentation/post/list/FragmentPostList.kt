@@ -16,11 +16,13 @@ import com.example.zemogatest.presentation.post.list.adapter.PostAdapter
 import com.example.zemogatest.presentation.post.list.adapter.PostUI
 import com.example.zemogatest.presentation.welcome.MainActivity
 import com.example.zemogatest.util.MarginItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
 /**
  * A placeholder fragment containing a simple view.
  */
+@AndroidEntryPoint
 class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
 
     private var binding: FragmentPostListBinding? = null
