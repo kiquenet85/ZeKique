@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ZemogaTest</string>
+    <string name="posts_title">Posts</string>
+    <string name="posts_tab_title">Posts</string>
+    <string name="favorites_tab_title">Favorites</string>
+    <string name="menu_refresh">REFRESH</string>
+</resources>
