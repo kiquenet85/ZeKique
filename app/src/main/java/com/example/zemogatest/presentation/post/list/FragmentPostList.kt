@@ -29,13 +29,10 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
     private lateinit var postAdapter: PostAdapter
     private val viewModel: PostViewModel by viewModels()
 
-    enum class Filter {
-        NONE, FAVORITES
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        viewModel.filter = PostViewModel.Filter.values()[requireArguments().getInt(FILTER_TYPE)]
         viewModel.loadPosts(true)
     }
 
@@ -96,6 +93,7 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_refresh -> {
+                viewModel.loadPosts(true)
                 return true
             }
         }
@@ -106,7 +104,7 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
         private const val FILTER_TYPE = "FILTER_TYPE"
 
         @JvmStatic
-        fun newInstance(filter: Filter): FragmentPostList {
+        fun newInstance(filter: PostViewModel.Filter): FragmentPostList {
             return FragmentPostList().apply {
                 arguments = Bundle().apply {
                     putInt(FILTER_TYPE, filter.ordinal)

@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.zemogatest.common.error.ErrorHandler
 import com.example.zemogatest.common.manager.ResourceManager
 import com.example.zemogatest.common.network.NetworkManager
+import com.example.zemogatest.data.post.use_case.LoadPostsUC
 import com.example.zemogatest.presentation.base.BaseCoroutineViewModel
 import com.example.zemogatest.presentation.post.list.state.PostUI
-import com.example.zemogatest.presentation.post.list.use_case.LoadPostsUC
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -24,13 +24,18 @@ class PostViewModel @Inject constructor(
     private val loadPostsUC: LoadPostsUC,
 ) : BaseCoroutineViewModel(resourceManager, errorHandler, networkManager) {
 
+    enum class Filter {
+        NONE, FAVORITES
+    }
+
+    var filter = Filter.NONE
     private val screenState = MutableLiveData<PostUIState>(PostUIState.PostLoading)
 
     fun getScreenState() : LiveData<PostUIState> = screenState
 
     fun loadPosts(refreshFromNetwork: Boolean){
         viewModelScope.launch(coroutineErrorHandler) {
-            loadPostsUC.execute(refreshFromNetwork).collect {
+            loadPostsUC.execute(refreshFromNetwork, filter).collect {
                 screenState.value = it
             }
         }

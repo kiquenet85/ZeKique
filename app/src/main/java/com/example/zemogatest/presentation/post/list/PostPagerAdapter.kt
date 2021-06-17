@@ -18,9 +18,9 @@ class PostPagerAdapter(fragManager: FragmentManager, lifecycle: Lifecycle) :
     override fun createFragment(position: Int): Fragment {
         return FragmentPostList.newInstance(
             if (FAVORITE_POSTS == position) {
-                FragmentPostList.Filter.FAVORITES
+                PostViewModel.Filter.FAVORITES
             } else {
-                FragmentPostList.Filter.NONE
+                PostViewModel.Filter.NONE
             }
         )
     }
