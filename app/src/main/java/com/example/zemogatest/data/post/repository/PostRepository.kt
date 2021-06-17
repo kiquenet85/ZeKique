@@ -87,6 +87,10 @@ class PostRepository @Inject constructor(
     suspend fun updateByID(post: PostEntity) {
         localSource.createOrUpdate(post)
     }
+
+    suspend fun deleteAll() {
+        localSource.deleteAll()
+    }
 }
 
 

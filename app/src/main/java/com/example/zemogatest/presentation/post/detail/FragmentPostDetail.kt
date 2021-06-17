@@ -15,6 +15,7 @@ import com.example.zemogatest.databinding.FragmentPostDetailBinding
 import com.example.zemogatest.presentation.post.detail.adapter.PostCommentUI
 import com.example.zemogatest.presentation.post.detail.adapter.PostDetailAdapter
 import com.example.zemogatest.util.MarginItemDecoration
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
@@ -39,6 +40,7 @@ class FragmentPostDetail : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.visibility = View.GONE
         setUpComments()
     }
 

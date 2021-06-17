@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zemogatest.R
@@ -17,6 +18,7 @@ import com.example.zemogatest.presentation.post.list.adapter.PostAdapter
 import com.example.zemogatest.presentation.post.list.state.PostUI
 import com.example.zemogatest.presentation.welcome.MainActivity
 import com.example.zemogatest.util.MarginItemDecoration
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -27,7 +29,7 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
 
     private var binding: FragmentPostListBinding? = null
     private lateinit var postAdapter: PostAdapter
-    private val viewModel: PostViewModel by viewModels()
+    private val viewModel: PostViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,7 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.visibility = View.VISIBLE
         setUpPosts()
         setUpListeners()
     }
@@ -54,7 +57,7 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
         viewModel.getScreenState().observe(viewLifecycleOwner) {
             when (it) {
                 PostUIState.PostEmpty -> {
-
+                    postAdapter.clearAllItems()
                 }
                 is PostUIState.PostLoaded -> {
                     postAdapter.addNewItems(it.value)

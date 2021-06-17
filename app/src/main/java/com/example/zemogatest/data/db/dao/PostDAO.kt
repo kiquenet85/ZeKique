@@ -29,8 +29,8 @@ interface PostDAO {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(entityToUpdate: PostEntity)
 
-    @Query("DELETE FROM PostEntity where id IN(:listIds)")
-    suspend fun deleteAll(listIds: List<String>): Int
+    @Query("DELETE FROM PostEntity")
+    suspend fun deleteAll(): Int
 
     @Query("DELETE FROM PostEntity where id = :id")
     suspend fun delete(id: String): Int

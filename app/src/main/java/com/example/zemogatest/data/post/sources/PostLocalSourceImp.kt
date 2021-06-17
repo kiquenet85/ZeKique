@@ -69,4 +69,8 @@ class PostLocalSourceImp @Inject constructor(private val db: AppDB) : PostLocalS
     override suspend fun getByName(itemTitle: String): Int {
         return db.postDAO().getByTitle(itemTitle)
     }
+
+    override suspend fun deleteAll() : Int {
+        return db.postDAO().deleteAll()
+    }
 }

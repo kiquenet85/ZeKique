@@ -51,6 +51,11 @@ class PostAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
+    fun clearAllItems() {
+        items.clear()
+        notifyDataSetChanged()
+    }
+
     interface OnPostListener {
         fun onPostClicked(post: PostUI)
     }

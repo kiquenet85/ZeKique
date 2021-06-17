@@ -1,15 +1,14 @@
 package com.example.zemogatest.presentation.welcome
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.example.zemogatest.R
 import com.example.zemogatest.common.navigator.Navigator
 import com.example.zemogatest.databinding.ActivityAppbarFabContainerBinding
 import com.example.zemogatest.presentation.post.list.FragmentPostTabs
+import com.example.zemogatest.presentation.post.list.PostViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -17,6 +16,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAppbarFabContainerBinding
 
+    private val viewModel: PostViewModel by viewModels()
     @Inject lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +34,7 @@ class MainActivity : AppCompatActivity() {
         val fab: FloatingActionButton = binding.fab
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            viewModel.deleteAllPosts()
         }
     }
 

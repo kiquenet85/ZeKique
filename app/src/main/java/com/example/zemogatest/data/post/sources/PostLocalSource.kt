@@ -21,4 +21,6 @@ interface PostLocalSource {
     suspend fun deleteById(id: String): Int
 
     suspend fun getByName(itemTitle: String): Int
+
+    suspend fun deleteAll() : Int
 }
