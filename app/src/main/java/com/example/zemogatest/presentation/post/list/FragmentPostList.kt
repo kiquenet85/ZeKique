@@ -8,16 +8,16 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zemogatest.R
 import com.example.zemogatest.databinding.FragmentPostListBinding
 import com.example.zemogatest.presentation.post.detail.FragmentPostDetail
 import com.example.zemogatest.presentation.post.list.adapter.PostAdapter
-import com.example.zemogatest.presentation.post.list.adapter.PostUI
+import com.example.zemogatest.presentation.post.list.state.PostUI
 import com.example.zemogatest.presentation.welcome.MainActivity
 import com.example.zemogatest.util.MarginItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.random.Random
 
 /**
  * A placeholder fragment containing a simple view.
@@ -27,6 +27,7 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
 
     private var binding: FragmentPostListBinding? = null
     private lateinit var postAdapter: PostAdapter
+    private val viewModel: PostViewModel by viewModels()
 
     enum class Filter {
         NONE, FAVORITES
@@ -35,6 +36,7 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        viewModel.loadPosts(true)
     }
 
     override fun onCreateView(
@@ -48,15 +50,27 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpPosts()
+        setUpListeners()
+    }
+
+    private fun setUpListeners() {
+        viewModel.getScreenState().observe(viewLifecycleOwner) {
+            when (it) {
+                PostUIState.PostEmpty -> {
+
+                }
+                is PostUIState.PostLoaded -> {
+                    postAdapter.addNewItems(it.value)
+                }
+                PostUIState.PostLoading -> {
+
+                }
+            }
+        }
     }
 
     private fun setUpPosts() {
-        val mutableList = mutableListOf<PostUI>().apply {
-            for (i in 0 until 100) {
-                add(PostUI(Random.nextLong().toString()))
-            }
-        }
-        postAdapter = PostAdapter(mutableList, this)
+        postAdapter = PostAdapter(mutableListOf(), this)
         binding?.postList?.apply {
             layoutManager = LinearLayoutManager(context)
 
@@ -71,7 +85,7 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
     }
 
     override fun onPostClicked(post: PostUI) {
-        (activity as? MainActivity)?.pushFragment(FragmentPostDetail.newInstance(), true)
+        (activity as? MainActivity)?.navigator?.navigateTo(FragmentPostDetail.newInstance(), true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

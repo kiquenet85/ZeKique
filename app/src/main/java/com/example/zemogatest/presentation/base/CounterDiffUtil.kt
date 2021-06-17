@@ -17,7 +17,7 @@ class CounterDiffUtil(oldEmployeeList: List<Identifier>, newEmployeeList: List<I
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldCounterList[oldItemPosition].getId() == newCounterList[newItemPosition].getId()
+        return oldCounterList[oldItemPosition].getIdentifier() == newCounterList[newItemPosition].getIdentifier()
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
@@ -28,5 +28,5 @@ class CounterDiffUtil(oldEmployeeList: List<Identifier>, newEmployeeList: List<I
 }
 
 interface Identifier {
-    fun getId(): String
+    fun getIdentifier(): String
 }

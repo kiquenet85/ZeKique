@@ -5,7 +5,7 @@ import androidx.room.Index
 
 @Entity(
     indices = [
-        Index(value = ["email"], unique = true)
+        Index(value = ["id"], unique = true)
     ],
     primaryKeys = ["email"]
 )

@@ -1,6 +1,5 @@
 package com.example.zemogatest.data.post.repository
 
-import com.example.zemogatest.common.repository.base.RefreshRateLimit
 import com.example.zemogatest.common.error.ErrorHandler
 import com.example.zemogatest.common.repository.base.operation.RepositoryReadOperation
 import com.example.zemogatest.data.db.entity.PostEntity
@@ -16,7 +15,7 @@ class PostRepository @Inject constructor(
     private val localSource: PostLocalSource,
     private val remoteSource: PostRemoteSource,
     private val errorHandler: ErrorHandler
-) : RefreshRateLimit {
+) {
 
     suspend fun getAll(infoItem: PostInfo): Flow<List<PostEntity>> {
         val operation = object :

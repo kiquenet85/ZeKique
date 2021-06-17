@@ -4,4 +4,9 @@
     <string name="posts_tab_title">Posts</string>
     <string name="favorites_tab_title">Favorites</string>
     <string name="menu_refresh">REFRESH</string>
+
+    <!--ERROR-->
+    <string name="general_error_handled">Something went wrong please try later!</string>
+    <string name="connection_error_description">The Internet connection appears to be offline.</string>
+
 </resources>

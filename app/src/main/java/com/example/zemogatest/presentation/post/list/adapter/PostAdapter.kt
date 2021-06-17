@@ -1,12 +1,13 @@
 package com.example.zemogatest.presentation.post.list.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zemogatest.databinding.PostListItemBinding
 import com.example.zemogatest.presentation.base.CounterDiffUtil
-import com.example.zemogatest.presentation.base.Identifier
+import com.example.zemogatest.presentation.post.list.state.PostUI
 
 class PostAdapter(
     private val items: MutableList<PostUI> = mutableListOf(),
@@ -26,10 +27,16 @@ class PostAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val item = items[position]
-        viewHolder.binding.containerListItem.setOnClickListener {
-            listener.onPostClicked(item)
+
+        with(viewHolder.binding) {
+            containerListItem.setOnClickListener {
+                listener.onPostClicked(item)
+            }
+
+            unreadImage.visibility = if (item.unread) View.VISIBLE else View.GONE
+            description.text = item.description
+            favoriteImage.visibility = if (item.favorite) View.VISIBLE else View.GONE
         }
-        viewHolder.binding.description.text = item.value
     }
 
     override fun getItemCount(): Int {
@@ -46,11 +53,5 @@ class PostAdapter(
 
     interface OnPostListener {
         fun onPostClicked(post: PostUI)
-    }
-}
-
-class PostUI(val value: String) : Identifier {
-    override fun getId(): String {
-        return value
     }
 }

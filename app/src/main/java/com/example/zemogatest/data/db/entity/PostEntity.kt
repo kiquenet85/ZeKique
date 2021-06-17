@@ -6,7 +6,7 @@ import androidx.room.Index
 @Entity(
     foreignKeys = [androidx.room.ForeignKey(
         entity = UserEntity::class,
-        parentColumns = ["email"],
+        parentColumns = ["id"],
         childColumns = ["userId"]
     )],
     indices = [Index(value = ["id"], unique = true),

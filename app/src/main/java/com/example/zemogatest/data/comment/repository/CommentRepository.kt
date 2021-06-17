@@ -1,7 +1,6 @@
 package com.example.zemogatest.data.comment.repository
 
 import com.example.zemogatest.common.error.ErrorHandler
-import com.example.zemogatest.common.repository.base.RefreshRateLimit
 import com.example.zemogatest.common.repository.base.operation.RepositoryReadOperation
 import com.example.zemogatest.data.comment.sources.CommentLocalSource
 import com.example.zemogatest.data.comment.sources.CommentRemoteSource
@@ -16,7 +15,7 @@ class CommentRepository @Inject constructor(
     private val localSource: CommentLocalSource,
     private val remoteSource: CommentRemoteSource,
     private val errorHandler: ErrorHandler
-) : RefreshRateLimit {
+) {
 
     suspend fun getAll(infoItem: CommentInfo): Flow<List<CommentEntity>> {
         val operation = object :

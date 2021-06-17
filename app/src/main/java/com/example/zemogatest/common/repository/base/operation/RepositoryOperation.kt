@@ -2,7 +2,7 @@
 
 package com.example.zemogatest.common.repository.base.operation
 
-import com.cornershop.counterstest.common.repository.base.RepositoryPolicy
+import com.example.zemogatest.common.repository.base.RepositoryPolicy
 import com.example.zemogatest.common.error.ErrorHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -5,15 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.zemogatest.R
+import com.example.zemogatest.common.navigator.Navigator
 import com.example.zemogatest.databinding.ActivityAppbarFabContainerBinding
 import com.example.zemogatest.presentation.post.list.FragmentPostTabs
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAppbarFabContainerBinding
+
+    @Inject lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         setUpToolbar()
         setUpFabButton()
-        pushFragment(FragmentPostTabs.newInstance(), false)
+        navigator.navigateTo(FragmentPostTabs.newInstance(), false)
     }
 
     private fun setUpFabButton() {
@@ -42,27 +46,6 @@ class MainActivity : AppCompatActivity() {
                 onBackPressed()
             }
             supportActionBar?.title = getString(R.string.posts_title)
-        }
-    }
-
-    fun pushFragment(
-        fragment: Fragment,
-        addToBackStack: Boolean,
-        fragmentManager: FragmentManager = supportFragmentManager,
-        containerId: Int = R.id.frag_container,
-        tag: String = fragment::class.java.canonicalName ?: fragment::class.java.name,
-        usingAddTransaction: Boolean = false
-    ): Int {
-
-        val transaction = fragmentManager.beginTransaction()
-        if (addToBackStack) {
-            transaction.addToBackStack(tag)
-        }
-
-        return if (usingAddTransaction) {
-            transaction.add(containerId, fragment, tag).commitAllowingStateLoss()
-        } else {
-            transaction.replace(containerId, fragment, tag).commitAllowingStateLoss()
         }
     }
 }

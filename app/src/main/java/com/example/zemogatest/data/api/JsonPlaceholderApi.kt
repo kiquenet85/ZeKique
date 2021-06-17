@@ -7,7 +7,7 @@ import retrofit2.http.GET
 
 interface JsonPlaceholderApi {
 
-    @GET("/post")
+    @GET("/posts")
     suspend fun getAllPosts(): List<PostResponseDTO>
 
     @GET("/users")

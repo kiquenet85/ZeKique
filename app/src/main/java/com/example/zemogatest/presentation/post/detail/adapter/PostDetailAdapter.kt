@@ -42,7 +42,7 @@ class PostDetailAdapter(
 }
 
 class PostCommentUI(val value: String) : Identifier {
-    override fun getId(): String {
+    override fun getIdentifier(): String {
         return value
     }
 }
