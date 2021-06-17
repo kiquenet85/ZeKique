@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.zemogatest.data.db.entity.PostEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -17,7 +18,7 @@ interface PostDAO {
     fun getAllAndObserve(): Flow<List<PostEntity>>
 
     @Query("SELECT * FROM PostEntity")
-    fun getAll():List<PostEntity>
+    fun getAll(): List<PostEntity>
 
     @Query("SELECT id FROM PostEntity")
     suspend fun getAllId(): List<String>
@@ -25,8 +26,8 @@ interface PostDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(items: List<PostEntity>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(entityToInsert: PostEntity)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun update(entityToUpdate: PostEntity)
 
     @Query("DELETE FROM PostEntity where id IN(:listIds)")
     suspend fun deleteAll(listIds: List<String>): Int

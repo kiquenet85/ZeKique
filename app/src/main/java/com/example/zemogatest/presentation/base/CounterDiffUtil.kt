@@ -21,9 +21,9 @@ class CounterDiffUtil(oldEmployeeList: List<Identifier>, newEmployeeList: List<I
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldEmployee: Identifier = oldCounterList[oldItemPosition]
-        val newEmployee: Identifier = newCounterList[newItemPosition]
-        return oldEmployee == newEmployee
+        val oldObject: Identifier = oldCounterList[oldItemPosition]
+        val newObject: Identifier = newCounterList[newItemPosition]
+        return oldObject == newObject
     }
 }
 

@@ -12,7 +12,7 @@
     android:longClickable="true">
 
     <ImageView
-        android:id="@+id/unread_image"
+        android:id="@+id/seen_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/favorite_image"
-        app:layout_constraintStart_toEndOf="@+id/unread_image"
+        app:layout_constraintStart_toEndOf="@+id/seen_image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Lorem ipsum is a dummy text used to replace text in some areas just for the purpose of an example. It can be used in publishing and graphic design. " />
 

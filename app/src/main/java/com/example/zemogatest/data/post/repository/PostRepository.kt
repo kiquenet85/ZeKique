@@ -39,7 +39,8 @@ class PostRepository @Inject constructor(
                         it.userId ?: EMPTY_STRING,
                         it.title ?: EMPTY_STRING,
                         it.body ?: EMPTY_STRING,
-                        false
+                        favorite = false,
+                        seen = false
                     )
                 }
             }
@@ -48,15 +49,21 @@ class PostRepository @Inject constructor(
                 data: List<PostEntity>,
                 info: PostInfo
             ): Boolean {
-                val mapCurrentValues = localSource.getAll().filter { it.favorite }.groupBy { it.id }
-                val valuesToUpdate = if (mapCurrentValues.isNotEmpty()) {
+                val allValues = localSource.getAll()
+                val valuesToUpdate = if (allValues.isNotEmpty()) {
+                    val mapCurrentFavorites = allValues.filter { it.favorite }.groupBy { it.id }
+                    val mapCurrentSeen = allValues.filter { it.seen }.groupBy { it.id }
+
                     data.map {
-                        mapCurrentValues[it.id]?.first()?.let { currentValue ->
-                            if (currentValue.favorite){
-                                return@map it.copy(favorite = true)
-                            }
-                        }
-                        it
+                        val currentFavorite = mapCurrentFavorites[it.id]?.first()
+                        val currentSeen = mapCurrentSeen[it.id]?.first()
+                        if (currentFavorite?.favorite == true && currentSeen?.seen == true) {
+                            return@map it.copy(favorite = true, seen = true)
+                        } else if (currentFavorite?.favorite == true) {
+                            return@map it.copy(favorite = true)
+                        } else if (currentSeen?.seen == true) {
+                            return@map it.copy(seen = true)
+                        } else it
                     }
                 } else data
                 localSource.updateAll(valuesToUpdate)
@@ -77,11 +84,8 @@ class PostRepository @Inject constructor(
         return localSource.getById(postId)
     }
 
-    suspend fun updateByID(postId: String) {
-        val currentValue = getById(postId)
-        if (currentValue is Optional.Some) {
-            localSource.createOrUpdate(currentValue.element)
-        }
+    suspend fun updateByID(post: PostEntity) {
+        localSource.createOrUpdate(post)
     }
 }
 

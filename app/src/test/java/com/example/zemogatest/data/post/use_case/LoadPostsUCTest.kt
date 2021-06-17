@@ -55,7 +55,8 @@ class LoadPostsUCTest {
                     "userID ${i}",
                     "title ${i}",
                     "This is just a nice number  ${i} post",
-                    false
+                    false,
+                    seen = false
                 )
             )
         }
@@ -70,18 +71,25 @@ class LoadPostsUCTest {
         val producedState = state.toList().first()
         assertTrue("State should be loaded", producedState is PostUIState.PostLoaded)
         assertEquals(
-            "20 unreaded items",
+            "20 show as not seen items",
             20,
-            (producedState as PostUIState.PostLoaded).value.filter { it.unread }.size
+            (producedState as PostUIState.PostLoaded).value.filter { it.showAsNotSeen }.size
         )
-        assertEquals("10 NOT unreaded items", 10, producedState.value.filter { !it.unread }.size)
+        assertEquals(
+            "others items as seen",
+            10,
+            producedState.value.filter { !it.showAsNotSeen }.size
+        )
     }
 
     @Test
     fun `when loadingPostsUC should transform Entity to UI Model`() = runBlocking {
         //GIVEN
         val list = listOf(
-            PostEntity("id", "userID", "title", "This is just a nice number post", false)
+            PostEntity(
+                "id", "userID", "title", "This is just a nice number post",
+                false, seen = false
+            )
         )
 
         coEvery { postRepository.getAll(any()) } returns flow { emit(list) }
@@ -92,7 +100,8 @@ class LoadPostsUCTest {
 
         //THEN
         val producedState = state.toList().first()
-        val expectedUiModel = PostUI("id", "This is just a nice number post", false, "userID", true)
+        val expectedUiModel =
+            PostUI("id", "title", "This is just a nice number post", false, "userID", false, true)
         assertTrue("State should be loaded", producedState is PostUIState.PostLoaded)
         assertEquals(
             "transforming to UIModel",
@@ -105,7 +114,10 @@ class LoadPostsUCTest {
     fun `when loadingPostsUC should combine with user information`() = runBlocking {
         //GIVEN
         val list = listOf(
-            PostEntity("id", "userID", "title", "This is just a nice number post", false)
+            PostEntity(
+                "id", "userID", "title", "This is just a nice number post",
+                false, seen = true
+            )
         )
 
         val listUser = listOf(
@@ -129,7 +141,16 @@ class LoadPostsUCTest {
         val expectedUIUser =
             UserUI("Name", "some@email.com", "4656435435 4c534", "www.zemoga@nice.com")
         val expectedUIPost =
-            PostUI("id", "This is just a nice number post", false, "userID", true, expectedUIUser)
+            PostUI(
+                "id",
+                "title",
+                "This is just a nice number post",
+                false,
+                "userID",
+                true,
+                showAsNotSeen = false,
+                userUI = expectedUIUser
+            )
         assertTrue("State should be loaded", producedState is PostUIState.PostLoaded)
         assertEquals(
             "Combining with user information",
@@ -176,7 +197,8 @@ class LoadPostsUCTest {
                         "userID ${i}",
                         "title ${i}",
                         "This is just a nice number  ${i} post",
-                        i % 2 == 0
+                        i % 2 == 0,
+                        false
                     )
                 )
             }

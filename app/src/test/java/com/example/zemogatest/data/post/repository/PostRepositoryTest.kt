@@ -138,10 +138,18 @@ class PostRepositoryTest {
     }
 
     companion object {
-        val postEntity = PostEntity("id", "userID", "title", "This is just a long post", false)
+        val postEntity = PostEntity(
+            "id", "userID", "title", "This is just a long post",
+            favorite = false,
+            seen = false
+        )
         val postResponseDTO =
             PostResponseDTO("id2", "userID2", "title2", "This is just another nice post")
         val expectedPostEntity =
-            PostEntity("id2", "userID2", "title2", "This is just another nice post", false)
+            PostEntity(
+                "id2", "userID2", "title2", "This is just another nice post",
+                favorite = false,
+                seen = false
+            )
     }
 }

@@ -19,5 +19,6 @@ data class PostEntity(
     val userId: String,
     val title: String,
     val body: String,
-    val favorite: Boolean
+    val favorite: Boolean,
+    val seen: Boolean
 )

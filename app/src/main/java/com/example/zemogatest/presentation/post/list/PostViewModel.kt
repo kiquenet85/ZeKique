@@ -8,7 +8,9 @@ import com.example.zemogatest.common.error.ErrorHandler
 import com.example.zemogatest.common.manager.ResourceManager
 import com.example.zemogatest.common.network.NetworkManager
 import com.example.zemogatest.data.post.use_case.LoadPostsUC
+import com.example.zemogatest.data.post.use_case.UpdatePostUC
 import com.example.zemogatest.presentation.base.BaseCoroutineViewModel
+import com.example.zemogatest.presentation.base.Event
 import com.example.zemogatest.presentation.post.list.state.PostUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -22,6 +24,7 @@ class PostViewModel @Inject constructor(
     errorHandler: ErrorHandler,
     networkManager: NetworkManager,
     private val loadPostsUC: LoadPostsUC,
+    private val updatePostsUC: UpdatePostUC
 ) : BaseCoroutineViewModel(resourceManager, errorHandler, networkManager) {
 
     enum class Filter {
@@ -30,21 +33,33 @@ class PostViewModel @Inject constructor(
 
     var filter = Filter.NONE
     private val screenState = MutableLiveData<PostUIState>(PostUIState.PostLoading)
+    private val screenEvent = MutableLiveData<Event<PostUIEvent>>()
 
-    fun getScreenState() : LiveData<PostUIState> = screenState
+    fun getScreenState(): LiveData<PostUIState> = screenState
+    fun getScreenEvent(): LiveData<Event<PostUIEvent>> = screenEvent
 
-    fun loadPosts(refreshFromNetwork: Boolean){
+    fun loadPosts(refreshFromNetwork: Boolean) {
         viewModelScope.launch(coroutineErrorHandler) {
             loadPostsUC.execute(refreshFromNetwork, filter).collect {
                 screenState.value = it
             }
         }
     }
+
+    fun updatePostAsSeen(updatedPost: PostUI) {
+        viewModelScope.launch(coroutineErrorHandler) {
+            updatePostsUC.execute(updatedPost)
+            screenEvent.value = Event(PostUIEvent.NavigateToDetail)
+        }
+    }
 }
 
-sealed class PostUIState{
+sealed class PostUIState {
     object PostLoading : PostUIState()
-    object PostEmpty: PostUIState()
+    object PostEmpty : PostUIState()
     class PostLoaded(val value: List<PostUI>) : PostUIState()
 }
 
+sealed class PostUIEvent {
+    object NavigateToDetail : PostUIEvent()
+}

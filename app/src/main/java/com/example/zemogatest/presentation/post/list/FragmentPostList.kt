@@ -64,6 +64,18 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
                 }
             }
         }
+
+        viewModel.getScreenEvent().observe(viewLifecycleOwner) {
+            when (it.getContentIfNotHandled()) {
+                PostUIEvent.NavigateToDetail ->
+                    (activity as? MainActivity)?.navigator?.navigateTo(
+                        FragmentPostDetail.newInstance(),
+                        true
+                    )
+                null -> {
+                }
+            }
+        }
     }
 
     private fun setUpPosts() {
@@ -82,7 +94,7 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
     }
 
     override fun onPostClicked(post: PostUI) {
-        (activity as? MainActivity)?.navigator?.navigateTo(FragmentPostDetail.newInstance(), true)
+        viewModel.updatePostAsSeen(post)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

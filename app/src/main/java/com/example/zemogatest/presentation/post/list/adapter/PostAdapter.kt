@@ -33,7 +33,7 @@ class PostAdapter(
                 listener.onPostClicked(item)
             }
 
-            unreadImage.visibility = if (item.unread) View.VISIBLE else View.GONE
+            seenImage.visibility = if (item.showAsNotSeen) View.VISIBLE else View.GONE
             description.text = item.description
             favoriteImage.visibility = if (item.favorite) View.VISIBLE else View.GONE
         }

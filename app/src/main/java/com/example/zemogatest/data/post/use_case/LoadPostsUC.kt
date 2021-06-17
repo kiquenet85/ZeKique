@@ -31,15 +31,24 @@ class LoadPostsUC @Inject constructor(
             userRepository.getAll(GetUserInfo(refreshFromNetwork))
         }
 
-        var unreadCounter = 20
         postRepository.getAll(GetPostInfo(refreshFromNetwork))
             .map { list ->
+                var notSeenCounter = 20
                 val listPostUI = list.map {
                     val uiItem =
-                        PostUI(it.id, it.body, it.favorite, it.userId, unreadCounter > 0)
-                    unreadCounter--
+                        PostUI(
+                            it.id,
+                            it.title,
+                            it.body,
+                            it.favorite,
+                            it.userId,
+                            it.seen,
+                            !it.seen && notSeenCounter > 0
+                        )
+                    if (!it.seen) notSeenCounter--
                     uiItem
                 }
+
                 if (PostViewModel.Filter.FAVORITES == filter) {
                     listPostUI.filter { it.favorite }
                 } else listPostUI
@@ -59,11 +68,11 @@ class LoadPostsUC @Inject constructor(
                         } ?: it
                     }
                 } else listOf()
-            }.map {
-                if (it.isEmpty()) {
+            }.map { resultList ->
+                if (resultList.isEmpty()) {
                     PostUIState.PostEmpty
                 } else {
-                    PostUIState.PostLoaded(it)
+                    PostUIState.PostLoaded(resultList)
                 }
             }
     }

@@ -40,7 +40,7 @@ class PostLocalSourceImp @Inject constructor(private val db: AppDB) : PostLocalS
     }
 
     override suspend fun createOrUpdate(item: PostEntity): Boolean {
-        db.postDAO().insert(item)
+        db.postDAO().update(item)
         return true
     }
 
