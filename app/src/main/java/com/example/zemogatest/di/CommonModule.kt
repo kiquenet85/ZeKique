@@ -27,7 +27,10 @@ object CommonModule {
 
     @Provides
     @Singleton
-    fun provideNetworkManager(@ApplicationContext application: Context, settings: Settings): NetworkManager {
+    fun provideNetworkManager(
+        @ApplicationContext application: Context,
+        settings: Settings
+    ): NetworkManager {
         return NetworkManager(application, settings)
     }
 

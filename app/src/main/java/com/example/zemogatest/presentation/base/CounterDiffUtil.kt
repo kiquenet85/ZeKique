@@ -28,5 +28,5 @@ class CounterDiffUtil(oldEmployeeList: List<Identifier>, newEmployeeList: List<I
 }
 
 interface Identifier {
-    fun getId() : String
+    fun getId(): String
 }

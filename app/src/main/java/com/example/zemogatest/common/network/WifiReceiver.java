@@ -15,7 +15,7 @@ public class WifiReceiver extends BroadcastReceiver {
 
     public static final String WIFI_RECEIVER_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
 
-    private NetworkManager networkManager;
+    private final NetworkManager networkManager;
 
     @Inject
     public WifiReceiver(NetworkManager networkManager) {

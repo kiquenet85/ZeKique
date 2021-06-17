@@ -11,7 +11,6 @@ import com.example.zemogatest.R
 import com.example.zemogatest.common.error.ErrorHandler
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
-import java.lang.IllegalStateException
 import javax.inject.Inject
 
 @ActivityScoped

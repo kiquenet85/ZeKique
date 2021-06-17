@@ -4,13 +4,15 @@ import androidx.room.Entity
 import androidx.room.Index
 
 @Entity(
-    indices = [Index(value = ["id"], unique = true)],
-    primaryKeys = ["id"]
+    indices = [
+        Index(value = ["email"], unique = true)
+    ],
+    primaryKeys = ["email"]
 )
 data class UserEntity(
     val id: String,
     val name: String,
     val email: String,
-    val phone: Int,
+    val phone: String,
     val website: String
 )

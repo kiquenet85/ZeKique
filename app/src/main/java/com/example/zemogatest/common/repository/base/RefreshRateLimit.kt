@@ -1,4 +1,4 @@
-package com.cornershop.counterstest.common.repository.base
+package com.example.zemogatest.common.repository.base
 
 import android.text.format.DateUtils
 import kotlin.math.abs

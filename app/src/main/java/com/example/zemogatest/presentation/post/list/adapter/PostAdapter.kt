@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.zemogatest.databinding.PostListItemBinding
 import com.example.zemogatest.presentation.base.CounterDiffUtil
 import com.example.zemogatest.presentation.base.Identifier
-import com.example.zemogatest.databinding.PostListItemBinding
 
 class PostAdapter(
     private val items: MutableList<PostUI> = mutableListOf(),
@@ -49,7 +49,7 @@ class PostAdapter(
     }
 }
 
-class PostUI(val value: String): Identifier {
+class PostUI(val value: String) : Identifier {
     override fun getId(): String {
         return value
     }
