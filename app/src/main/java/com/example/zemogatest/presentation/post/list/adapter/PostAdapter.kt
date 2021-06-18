@@ -57,6 +57,10 @@ class PostAdapter(
         notifyDataSetChanged()
     }
 
+    fun getItemAt(position: Int): PostUI {
+        return items[position]
+    }
+
     interface OnPostListener {
         fun onPostClicked(post: PostUI)
     }

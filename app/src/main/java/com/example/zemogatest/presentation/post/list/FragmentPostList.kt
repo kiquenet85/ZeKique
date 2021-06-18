@@ -9,16 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zemogatest.R
+import com.example.zemogatest.common.manager.ResourceManager
 import com.example.zemogatest.databinding.FragmentPostListBinding
 import com.example.zemogatest.presentation.post.detail.FragmentPostDetail
 import com.example.zemogatest.presentation.post.list.adapter.PostAdapter
+import com.example.zemogatest.presentation.post.list.adapter.SwipeToDeleteCallback
 import com.example.zemogatest.presentation.post.list.ui_model.PostUI
 import com.example.zemogatest.presentation.welcome.MainActivity
 import com.example.zemogatest.util.MarginItemDecoration
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A placeholder fragment containing a simple view.
@@ -29,6 +33,8 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
     private var binding: FragmentPostListBinding? = null
     private lateinit var postAdapter: PostAdapter
     private val viewModel: PostViewModel by viewModels()
+    @Inject
+    lateinit var resourceManager: ResourceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +98,13 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
                 )
             )
             adapter = postAdapter
+
+            ItemTouchHelper(
+                SwipeToDeleteCallback(
+                    postAdapter, viewModel,
+                    resourceManager
+                )
+            ).attachToRecyclerView(this)
         }
     }
 

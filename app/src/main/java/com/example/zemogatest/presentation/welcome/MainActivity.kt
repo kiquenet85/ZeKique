@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAppbarFabContainerBinding
 
     private val viewModel: PostActivityViewModel by viewModels()
+
     @Inject
     lateinit var navigator: Navigator
 

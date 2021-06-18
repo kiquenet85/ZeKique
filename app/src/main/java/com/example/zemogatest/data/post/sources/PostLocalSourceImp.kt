@@ -14,7 +14,10 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class PostLocalSourceImp @Inject constructor(private val db: AppDB, private val dbDispatcher: CoroutineDispatcher) : PostLocalSource {
+class PostLocalSourceImp @Inject constructor(
+    private val db: AppDB,
+    private val dbDispatcher: CoroutineDispatcher
+) : PostLocalSource {
 
     override suspend fun updateAll(items: List<PostEntity>): Boolean = withContext(dbDispatcher) {
         val oldItemsId = db.postDAO().getAllId()
@@ -36,12 +39,13 @@ class PostLocalSourceImp @Inject constructor(private val db: AppDB, private val 
         true
     }
 
-    override suspend fun createOrUpdate(items: List<PostEntity>): Boolean = withContext(dbDispatcher){
-        db.postDAO().insert(items)
-        true
-    }
+    override suspend fun createOrUpdate(items: List<PostEntity>): Boolean =
+        withContext(dbDispatcher) {
+            db.postDAO().insert(items)
+            true
+        }
 
-    override suspend fun createOrUpdate(item: PostEntity): Boolean = withContext(dbDispatcher){
+    override suspend fun createOrUpdate(item: PostEntity): Boolean = withContext(dbDispatcher) {
         db.postDAO().update(item)
         true
     }
@@ -65,7 +69,7 @@ class PostLocalSourceImp @Inject constructor(private val db: AppDB, private val 
     }
 
     override suspend fun deleteById(id: String): Int = withContext(dbDispatcher) {
-       db.postDAO().delete(id)
+        db.postDAO().delete(id)
     }
 
     override suspend fun getByName(itemTitle: String): Int = withContext(dbDispatcher) {
@@ -74,5 +78,9 @@ class PostLocalSourceImp @Inject constructor(private val db: AppDB, private val 
 
     override suspend fun deleteAll(): Int = withContext(dbDispatcher) {
         db.postDAO().deleteAll()
+    }
+
+    override suspend fun delete(id: String): Int = withContext(dbDispatcher) {
+        db.postDAO().delete(id)
     }
 }

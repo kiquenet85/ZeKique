@@ -91,6 +91,10 @@ class PostRepository @Inject constructor(
     suspend fun deleteAll() {
         localSource.deleteAll()
     }
+
+    suspend fun delete(postId: String) {
+        localSource.delete(postId)
+    }
 }
 
 

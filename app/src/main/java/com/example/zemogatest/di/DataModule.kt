@@ -10,7 +10,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
 import java.util.concurrent.Executors
 import javax.inject.Singleton
@@ -25,6 +24,7 @@ object DataModule {
         return Room.databaseBuilder(appContext, AppDB::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration().build()
     }
+
     @Provides
     @Singleton
     fun providesDBDispatcher(): CoroutineDispatcher {

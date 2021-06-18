@@ -44,6 +44,7 @@ class FragmentPostTabs : Fragment() {
 
             setCurrentItem(ALL_POSTS, false)
             offscreenPageLimit = 2
+            isUserInputEnabled = false
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.zemogatest.common.error.ErrorHandler
 import com.example.zemogatest.common.manager.ResourceManager
 import com.example.zemogatest.common.network.NetworkManager
+import com.example.zemogatest.data.post.use_case.DeletePostUC
 import com.example.zemogatest.data.post.use_case.LoadPostsUC
 import com.example.zemogatest.data.post.use_case.UpdateSeenPostUC
 import com.example.zemogatest.presentation.base.BaseCoroutineViewModel
@@ -24,7 +25,8 @@ class PostViewModel @Inject constructor(
     errorHandler: ErrorHandler,
     networkManager: NetworkManager,
     private val loadPostsUC: LoadPostsUC,
-    private val updatePostsUC: UpdateSeenPostUC
+    private val updatePostsUC: UpdateSeenPostUC,
+    private val deletePostUC: DeletePostUC
 ) : BaseCoroutineViewModel(resourceManager, errorHandler, networkManager) {
 
     enum class Filter {
@@ -50,6 +52,12 @@ class PostViewModel @Inject constructor(
         viewModelScope.launch(coroutineErrorHandler) {
             updatePostsUC.execute(updatedPost)
             screenEvent.value = Event(PostUIEvent.NavigateToDetail(updatedPost))
+        }
+    }
+
+    fun deletePost(postUI: PostUI) {
+        viewModelScope.launch(coroutineErrorHandler) {
+            deletePostUC.execute(postUI)
         }
     }
 }
