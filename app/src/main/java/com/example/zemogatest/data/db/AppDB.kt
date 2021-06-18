@@ -14,7 +14,7 @@ import com.example.zemogatest.data.db.entity.UserEntity
         UserEntity::class,
         PostEntity::class,
         CommentEntity::class
-    ], version = 4
+    ], version = 5
 )
 abstract class AppDB : RoomDatabase() {
     abstract fun userDAO(): UserDAO

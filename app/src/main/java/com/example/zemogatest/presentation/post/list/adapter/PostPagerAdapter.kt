@@ -1,10 +1,12 @@
-package com.example.zemogatest.presentation.post.list
+package com.example.zemogatest.presentation.post.list.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.zemogatest.R
+import com.example.zemogatest.presentation.post.list.FragmentPostList
+import com.example.zemogatest.presentation.post.list.PostViewModel
 
 /**
  *  Page pagerAdapter containing posts

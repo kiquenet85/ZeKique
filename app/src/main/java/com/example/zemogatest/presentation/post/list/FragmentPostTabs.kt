@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.zemogatest.databinding.FragmentPostTabsBinding
-import com.example.zemogatest.presentation.post.list.PostPagerAdapter.Companion.ALL_POSTS
+import com.example.zemogatest.presentation.post.list.adapter.PostPagerAdapter
+import com.example.zemogatest.presentation.post.list.adapter.PostPagerAdapter.Companion.ALL_POSTS
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 

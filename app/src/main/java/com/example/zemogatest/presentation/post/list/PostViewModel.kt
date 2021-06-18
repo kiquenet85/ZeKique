@@ -12,7 +12,7 @@ import com.example.zemogatest.data.post.use_case.LoadPostsUC
 import com.example.zemogatest.data.post.use_case.UpdatePostUC
 import com.example.zemogatest.presentation.base.BaseCoroutineViewModel
 import com.example.zemogatest.presentation.base.Event
-import com.example.zemogatest.presentation.post.list.state.PostUI
+import com.example.zemogatest.presentation.post.list.ui_model.PostUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -51,7 +51,7 @@ class PostViewModel @Inject constructor(
     fun updatePostAsSeen(updatedPost: PostUI) {
         viewModelScope.launch(coroutineErrorHandler) {
             updatePostsUC.execute(updatedPost)
-            screenEvent.value = Event(PostUIEvent.NavigateToDetail)
+            screenEvent.value = Event(PostUIEvent.NavigateToDetail(updatedPost))
         }
     }
 
@@ -69,5 +69,5 @@ sealed class PostUIState {
 }
 
 sealed class PostUIEvent {
-    object NavigateToDetail : PostUIEvent()
+    class NavigateToDetail(val postUI: PostUI) : PostUIEvent()
 }

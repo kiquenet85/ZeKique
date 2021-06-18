@@ -16,94 +16,106 @@
         <TextView
             android:id="@+id/fragment_post_detail_description_title"
             style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal_1"
             android:layout_marginTop="@dimen/margin_normal_1"
-            android:text="Description"
+            android:layout_marginEnd="16dp"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Description" />
 
         <TextView
             android:id="@+id/fragment_post_detail_description_msg"
             style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal_1"
             android:layout_marginTop="@dimen/margin_small_1"
             android:layout_marginEnd="@dimen/margin_normal_1"
-            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_description_title" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_description_title"
+            tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum" />
 
         <TextView
             android:id="@+id/fragment_post_detail_user_title"
             style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal_1"
             android:layout_marginTop="@dimen/margin_normal_1"
-            android:text="User"
+            android:layout_marginEnd="@dimen/margin_normal_1"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_description_msg" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_description_msg"
+            tools:text="User" />
 
         <TextView
             android:id="@+id/fragment_post_detail_user_name"
             style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal_1"
             android:layout_marginTop="@dimen/margin_small_1"
-            android:text="Name"
+            android:layout_marginEnd="@dimen/margin_normal_1"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_user_title" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_user_title"
+            tools:text="Name" />
 
         <TextView
             android:id="@+id/fragment_post_detail_user_email"
             style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal_1"
             android:layout_marginTop="@dimen/margin_small_1"
-            android:text="Email"
+            android:layout_marginEnd="@dimen/margin_normal_1"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_user_name" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_user_name"
+            tools:text="Email" />
 
         <TextView
             android:id="@+id/fragment_post_detail_user_phone"
             style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal_1"
             android:layout_marginTop="@dimen/margin_small_1"
-            android:text="Phone"
+            android:layout_marginEnd="@dimen/margin_normal_1"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_user_email" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_user_email"
+            tools:text="Phone" />
 
         <TextView
             android:id="@+id/fragment_post_detail_user_website"
             style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal_1"
             android:layout_marginTop="@dimen/margin_small_1"
-            android:text="Website"
+            android:layout_marginEnd="@dimen/margin_normal_1"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_user_phone" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_user_phone"
+            tools:text="Website" />
 
         <TextView
             android:id="@+id/fragment_post_detail_comments_title"
@@ -114,19 +126,17 @@
             android:background="@android:color/darker_gray"
             android:paddingStart="@dimen/margin_normal_1"
             android:paddingEnd="@dimen/margin_normal_1"
-            android:text="COMMENTS"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_user_website" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_post_detail_user_website"
+            tools:text="COMMENTS" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_post_detail_comments_list"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_match_constraint"
-            android:layout_marginStart="@dimen/margin_normal_1"
             android:layout_marginTop="@dimen/margin_small_1"
-            android:layout_marginEnd="@dimen/margin_normal_1"
             android:clipToPadding="false"
             android:nestedScrollingEnabled="true"
             android:scrollbarStyle="outsideOverlay"

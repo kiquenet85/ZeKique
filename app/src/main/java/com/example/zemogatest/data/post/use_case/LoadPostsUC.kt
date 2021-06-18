@@ -6,8 +6,8 @@ import com.example.zemogatest.data.user.repository.GetUserInfo
 import com.example.zemogatest.data.user.repository.UserRepository
 import com.example.zemogatest.presentation.post.list.PostUIState
 import com.example.zemogatest.presentation.post.list.PostViewModel
-import com.example.zemogatest.presentation.post.list.state.PostUI
-import com.example.zemogatest.presentation.post.list.state.UserUI
+import com.example.zemogatest.presentation.post.list.ui_model.PostUI
+import com.example.zemogatest.presentation.post.list.ui_model.UserUI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow

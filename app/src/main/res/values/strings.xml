@@ -9,4 +9,8 @@
     <string name="general_error_handled">Something went wrong please try later!</string>
     <string name="connection_error_description">The Internet connection appears to be offline.</string>
 
+    <!--Post Detail-->
+    <string name="post_detail_user_title">USER</string>
+    <string name="post_detail_comments_title">COMMENTS</string>
+
 </resources>

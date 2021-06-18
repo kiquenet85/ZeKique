@@ -4,11 +4,7 @@ import androidx.room.Entity
 import androidx.room.Index
 
 @Entity(
-    foreignKeys = [androidx.room.ForeignKey(
-        entity = UserEntity::class,
-        parentColumns = ["email"],
-        childColumns = ["userId"]
-    ),
+    foreignKeys = [
         androidx.room.ForeignKey(
             entity = PostEntity::class,
             parentColumns = ["id"],
