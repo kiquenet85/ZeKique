@@ -43,6 +43,7 @@ class FragmentPostTabs : Fragment() {
             }.attach()
 
             setCurrentItem(ALL_POSTS, false)
+            offscreenPageLimit = 2
         }
     }
 

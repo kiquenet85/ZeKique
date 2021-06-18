@@ -30,6 +30,7 @@ class PostAdapter(
 
         with(viewHolder.binding) {
             containerListItem.setOnClickListener {
+                seenImage.visibility = View.GONE
                 listener.onPostClicked(item)
             }
 

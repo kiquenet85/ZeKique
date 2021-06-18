@@ -20,7 +20,7 @@ class UpdateFavoritePostUC @Inject constructor(
                 post.title,
                 post.description,
                 value,
-                post.seen
+                true
             )
         )
         return@withContext true
