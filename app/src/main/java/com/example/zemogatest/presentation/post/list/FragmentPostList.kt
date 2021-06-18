@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zemogatest.R
 import com.example.zemogatest.common.manager.ResourceManager
 import com.example.zemogatest.databinding.FragmentPostListBinding
+import com.example.zemogatest.presentation.base.CommonErrorState
 import com.example.zemogatest.presentation.post.detail.FragmentPostDetail
 import com.example.zemogatest.presentation.post.list.adapter.PostAdapter
 import com.example.zemogatest.presentation.post.list.adapter.SwipeToDeleteCallback
@@ -59,16 +61,29 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
     }
 
     private fun setUpListeners() {
+        viewModel.getErrorState().observe(viewLifecycleOwner){
+            binding?.progressBar?.visibility = View.GONE
+            when(it){
+                is CommonErrorState.ConnectionError ->
+                    Toast.makeText(context, getString(R.string.connection_error_description), Toast.LENGTH_SHORT).show()
+                is CommonErrorState.CriticalUIError,
+                is CommonErrorState.LogicalError ->
+                    Toast.makeText(context, getString(R.string.general_error_handled), Toast.LENGTH_SHORT).show()
+            }
+        }
+
         viewModel.getScreenState().observe(viewLifecycleOwner) {
             when (it) {
                 PostUIState.PostEmpty -> {
+                    binding?.progressBar?.visibility = View.GONE
                     postAdapter.clearAllItems()
                 }
                 is PostUIState.PostLoaded -> {
+                    binding?.progressBar?.visibility = View.GONE
                     postAdapter.addNewItems(it.value)
                 }
                 PostUIState.PostLoading -> {
-
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
             }
         }

@@ -41,6 +41,7 @@ class PostViewModel @Inject constructor(
     fun getScreenEvent(): LiveData<Event<PostUIEvent>> = screenEvent
 
     fun loadPosts(refreshFromNetwork: Boolean) {
+        if (refreshFromNetwork) screenState.value = PostUIState.PostLoading
         viewModelScope.launch(coroutineErrorHandler) {
             loadPostsUC.execute(refreshFromNetwork, filter).collect {
                 screenState.value = it

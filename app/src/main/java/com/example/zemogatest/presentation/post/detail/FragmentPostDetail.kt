@@ -7,12 +7,14 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zemogatest.R
 import com.example.zemogatest.databinding.FragmentPostDetailBinding
+import com.example.zemogatest.presentation.base.CommonErrorState
 import com.example.zemogatest.presentation.post.detail.adapter.PostDetailAdapter
 import com.example.zemogatest.presentation.post.list.ui_model.PostUI
 import com.example.zemogatest.util.EMPTY_STRING
@@ -81,13 +83,37 @@ class FragmentPostDetail : Fragment() {
     }
 
     private fun setUpListeners() {
+        viewModel.getErrorState().observe(viewLifecycleOwner) {
+            binding?.progressBar?.visibility = View.GONE
+            when (it) {
+                is CommonErrorState.ConnectionError ->
+                    Toast.makeText(
+                        context,
+                        getString(R.string.connection_error_description),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                is CommonErrorState.CriticalUIError,
+                is CommonErrorState.LogicalError ->
+                    Toast.makeText(
+                        context,
+                        getString(R.string.general_error_handled),
+                        Toast.LENGTH_SHORT
+                    ).show()
+            }
+        }
+
         viewModel.getScreenState().observe(viewLifecycleOwner) {
             when (it) {
-                CommentUIState.CommentEmpty ->
+                CommentUIState.CommentEmpty -> {
+                    binding?.progressBar?.visibility = View.GONE
                     postDetailAdapter.clearItems()
-                is CommentUIState.CommentLoaded ->
+                }
+                is CommentUIState.CommentLoaded -> {
+                    binding?.progressBar?.visibility = View.GONE
                     postDetailAdapter.addNewItems(it.value)
+                }
                 CommentUIState.CommentLoading -> {
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
             }
         }
