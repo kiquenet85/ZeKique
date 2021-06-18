@@ -44,8 +44,14 @@ class LoadPostsUCTest {
         LoadPostsUC = LoadPostsUC(postRepository, userRepository)
     }
 
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
+        mainThreadSurrogate.close()
+    }
+
     @Test
-    fun `when loadingPostsUC First 20 posts should be unreaded`() = runBlocking {
+    fun `when loadingPostsUC First 20 posts should be show as not seen`() = runBlocking {
         //GIVEN
         val list = mutableListOf<PostEntity>()
         for (i in 0 until 30) {
@@ -81,6 +87,45 @@ class LoadPostsUCTest {
             producedState.value.filter { !it.showAsNotSeen }.size
         )
     }
+
+    @Test
+    fun `when loadingPostsUC with Filter FAVORITES should not show any post as show as not seen`() =
+        runBlocking {
+            //GIVEN
+            val list = mutableListOf<PostEntity>()
+            for (i in 0 until 30) {
+                list.add(
+                    PostEntity(
+                        "id ${i}",
+                        "userID ${i}",
+                        "title ${i}",
+                        "This is just a nice number  ${i} post",
+                        true,
+                        seen = false
+                    )
+                )
+            }
+
+            coEvery { postRepository.getAll(any()) } returns flow { emit(list) }
+            coEvery { userRepository.getAll(any()) } returns flow { emit(listOf<UserEntity>()) }
+
+            //WHEN
+            val state = LoadPostsUC.execute(true, PostViewModel.Filter.FAVORITES)
+
+            //THEN
+            val producedState = state.toList().first()
+            assertTrue("State should be loaded", producedState is PostUIState.PostLoaded)
+            assertEquals(
+                "0 show as not seen items",
+                0,
+                (producedState as PostUIState.PostLoaded).value.filter { it.showAsNotSeen }.size
+            )
+            assertEquals(
+                "others items as seen",
+                30,
+                producedState.value.filter { !it.showAsNotSeen }.size
+            )
+        }
 
     @Test
     fun `when loadingPostsUC should transform Entity to UI Model`() = runBlocking {
@@ -218,10 +263,4 @@ class LoadPostsUCTest {
                 (producedState as PostUIState.PostLoaded).value.size
             )
         }
-
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        mainThreadSurrogate.close()
-    }
 }
