@@ -1,13 +1,15 @@
 package com.example.zemogatest.data.db.entity
 
 import androidx.room.Entity
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.Index
 
 @Entity(
     foreignKeys = [androidx.room.ForeignKey(
         entity = UserEntity::class,
         parentColumns = ["id"],
-        childColumns = ["userId"]
+        childColumns = ["userId"],
+        onDelete = CASCADE
     )],
     indices = [Index(value = ["id"], unique = true),
         Index(value = ["userId"], unique = false)

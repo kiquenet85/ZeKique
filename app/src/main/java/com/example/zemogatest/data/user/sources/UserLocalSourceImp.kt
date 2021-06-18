@@ -4,18 +4,22 @@ import androidx.room.withTransaction
 import com.example.zemogatest.data.db.AppDB
 import com.example.zemogatest.data.db.entity.UserEntity
 import com.example.zemogatest.util.Optional
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UserLocalSourceImp @Inject constructor(private val db: AppDB) : UserLocalSource {
+class UserLocalSourceImp @Inject constructor(
+    private val db: AppDB,
+    private val dbDispatcher: CoroutineDispatcher
+) : UserLocalSource {
 
-    override suspend fun updateAll(items: List<UserEntity>): Boolean {
+    override suspend fun updateAll(items: List<UserEntity>): Boolean = withContext(dbDispatcher) {
         val oldItemsId = db.userDAO().getAllId()
         val newItemsId = mutableListOf<String>()
 
@@ -32,17 +36,18 @@ class UserLocalSourceImp @Inject constructor(private val db: AppDB) : UserLocalS
                 }
             }
         }
-        return true
+        true
     }
 
-    override suspend fun createOrUpdate(items: List<UserEntity>): Boolean {
-        db.userDAO().insert(items)
-        return true
-    }
+    override suspend fun createOrUpdate(items: List<UserEntity>): Boolean =
+        withContext(dbDispatcher) {
+            db.userDAO().insert(items)
+            true
+        }
 
-    override suspend fun createOrUpdate(item: UserEntity): Boolean {
+    override suspend fun createOrUpdate(item: UserEntity): Boolean = withContext(dbDispatcher) {
         db.userDAO().insert(item)
-        return true
+        true
     }
 
     override fun getAll(): Flow<List<UserEntity>> {
@@ -53,17 +58,21 @@ class UserLocalSourceImp @Inject constructor(private val db: AppDB) : UserLocalS
             .flowOn(Dispatchers.Default)
     }
 
-    override suspend fun getById(id: String): Optional<UserEntity> {
-        return db.userDAO().getById(id)?.let {
+    override suspend fun getById(id: String): Optional<UserEntity> = withContext(dbDispatcher) {
+        db.userDAO().getById(id)?.let {
             Optional.Some(it)
         } ?: Optional.None
     }
 
-    override suspend fun deleteById(id: String): Int {
-        return db.userDAO().delete(id)
+    override suspend fun deleteById(id: String): Int = withContext(dbDispatcher) {
+        db.userDAO().delete(id)
     }
 
-    override suspend fun getByName(itemName: String): Int {
-        return db.userDAO().getByName(itemName)
+    override suspend fun getByName(itemName: String): Int = withContext(dbDispatcher) {
+        db.userDAO().getByName(itemName)
+    }
+
+    override suspend fun deleteAll(): Int = withContext(dbDispatcher) {
+        db.userDAO().deleteAll()
     }
 }

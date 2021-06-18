@@ -8,6 +8,7 @@ import com.example.zemogatest.common.error.ErrorHandler
 import com.example.zemogatest.common.manager.ResourceManager
 import com.example.zemogatest.common.network.NetworkManager
 import com.example.zemogatest.data.comment.use_case.LoadCommentsUC
+import com.example.zemogatest.data.post.use_case.UpdateFavoritePostUC
 import com.example.zemogatest.presentation.base.BaseCoroutineViewModel
 import com.example.zemogatest.presentation.post.detail.ui_model.CommentUI
 import com.example.zemogatest.presentation.post.list.ui_model.PostUI
@@ -23,6 +24,7 @@ class PostDetailViewModel @Inject constructor(
     errorHandler: ErrorHandler,
     networkManager: NetworkManager,
     private val loadCommentsUC: LoadCommentsUC,
+    private val updatePostFavoriteUC: UpdateFavoritePostUC,
 ) : BaseCoroutineViewModel(resourceManager, errorHandler, networkManager) {
 
     var post: PostUI? = state[EXTRA_SELECTED_USER]
@@ -43,8 +45,16 @@ class PostDetailViewModel @Inject constructor(
         state.set(EXTRA_SELECTED_USER, post)
     }
 
+    fun addPostAsFavorite(value: Boolean) {
+        post?.let {
+            viewModelScope.launch(coroutineErrorHandler) {
+                updatePostFavoriteUC.execute(it, value)
+            }
+        }
+    }
+
     companion object {
-        const val EXTRA_SELECTED_USER =  "EXTRA_SELECTED_USER"
+        const val EXTRA_SELECTED_USER = "EXTRA_SELECTED_USER"
     }
 }
 

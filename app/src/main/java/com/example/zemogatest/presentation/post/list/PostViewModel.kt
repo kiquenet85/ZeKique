@@ -9,7 +9,7 @@ import com.example.zemogatest.common.manager.ResourceManager
 import com.example.zemogatest.common.network.NetworkManager
 import com.example.zemogatest.data.post.use_case.DeletePostUC
 import com.example.zemogatest.data.post.use_case.LoadPostsUC
-import com.example.zemogatest.data.post.use_case.UpdatePostUC
+import com.example.zemogatest.data.post.use_case.UpdateSeenPostUC
 import com.example.zemogatest.presentation.base.BaseCoroutineViewModel
 import com.example.zemogatest.presentation.base.Event
 import com.example.zemogatest.presentation.post.list.ui_model.PostUI
@@ -25,7 +25,7 @@ class PostViewModel @Inject constructor(
     errorHandler: ErrorHandler,
     networkManager: NetworkManager,
     private val loadPostsUC: LoadPostsUC,
-    private val updatePostsUC: UpdatePostUC,
+    private val updatePostsUC: UpdateSeenPostUC,
     private val deletePostsUC: DeletePostUC
 ) : BaseCoroutineViewModel(resourceManager, errorHandler, networkManager) {
 

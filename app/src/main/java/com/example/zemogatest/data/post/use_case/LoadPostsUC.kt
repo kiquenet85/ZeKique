@@ -33,7 +33,7 @@ class LoadPostsUC @Inject constructor(
 
         postRepository.getAll(GetPostInfo(refreshFromNetwork))
             .map { list ->
-                var notSeenCounter = 20
+                var notSeenCounter = if (PostViewModel.Filter.NONE == filter) 20 else 0
                 val listPostUI = list.map {
                     val uiItem =
                         PostUI(

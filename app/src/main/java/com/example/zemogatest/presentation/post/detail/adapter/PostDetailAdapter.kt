@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zemogatest.databinding.PostDetailListItemBinding
 import com.example.zemogatest.presentation.base.CounterDiffUtil
-import com.example.zemogatest.presentation.base.Identifier
 import com.example.zemogatest.presentation.post.detail.ui_model.CommentUI
 
 class PostDetailAdapter(

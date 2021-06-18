@@ -1,6 +1,7 @@
 package com.example.zemogatest.data.db.entity
 
 import androidx.room.Entity
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.Index
 
 @Entity(
@@ -8,7 +9,8 @@ import androidx.room.Index
         androidx.room.ForeignKey(
             entity = PostEntity::class,
             parentColumns = ["id"],
-            childColumns = ["postId"]
+            childColumns = ["postId"],
+            onDelete = CASCADE
         )
     ],
     indices = [Index(value = ["id"], unique = true),

@@ -14,7 +14,7 @@ interface CommentLocalSource {
 
     fun getAll(): Flow<List<CommentEntity>>
 
-    fun getById(id: String): Optional<CommentEntity>
+    suspend fun getById(id: String): Optional<CommentEntity>
 
     suspend fun deleteById(id: String): Int
 }

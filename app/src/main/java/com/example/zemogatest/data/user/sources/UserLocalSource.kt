@@ -19,4 +19,6 @@ interface UserLocalSource {
     suspend fun deleteById(id: String): Int
 
     suspend fun getByName(itemName: String): Int
+
+    suspend fun deleteAll(): Int
 }

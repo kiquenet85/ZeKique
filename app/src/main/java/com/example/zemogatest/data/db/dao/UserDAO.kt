@@ -25,8 +25,8 @@ interface UserDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entityToInsert: UserEntity)
 
-    @Query("DELETE FROM UserEntity where id IN(:listIds)")
-    suspend fun deleteAll(listIds: List<String>): Int
+    @Query("DELETE FROM UserEntity")
+    suspend fun deleteAll(): Int
 
     @Query("DELETE FROM UserEntity where id = :id")
     suspend fun delete(id: String): Int

@@ -72,6 +72,10 @@ class UserRepository @Inject constructor(
             localSource.createOrUpdate(currentValue.element)
         }
     }
+
+    suspend fun deleteAll(): Int {
+        return localSource.deleteAll()
+    }
 }
 
 

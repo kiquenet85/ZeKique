@@ -34,7 +34,7 @@ class FragmentPostList : Fragment(), PostAdapter.OnPostListener {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         viewModel.filter = PostViewModel.Filter.values()[requireArguments().getInt(FILTER_TYPE)]
-        viewModel.loadPosts(true)
+        viewModel.loadPosts(PostViewModel.Filter.NONE == viewModel.filter)
     }
 
     override fun onCreateView(

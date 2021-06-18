@@ -4,17 +4,19 @@ import androidx.room.withTransaction
 import com.example.zemogatest.data.db.AppDB
 import com.example.zemogatest.data.db.entity.PostEntity
 import com.example.zemogatest.util.Optional
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class PostLocalSourceImp @Inject constructor(private val db: AppDB) : PostLocalSource {
+class PostLocalSourceImp @Inject constructor(private val db: AppDB, private val dbDispatcher: CoroutineDispatcher) : PostLocalSource {
 
-    override suspend fun updateAll(items: List<PostEntity>): Boolean {
+    override suspend fun updateAll(items: List<PostEntity>): Boolean = withContext(dbDispatcher) {
         val oldItemsId = db.postDAO().getAllId()
         val newItemsId = mutableListOf<String>()
 
@@ -31,17 +33,17 @@ class PostLocalSourceImp @Inject constructor(private val db: AppDB) : PostLocalS
                 }
             }
         }
-        return true
+        true
     }
 
-    override suspend fun createOrUpdate(items: List<PostEntity>): Boolean {
+    override suspend fun createOrUpdate(items: List<PostEntity>): Boolean = withContext(dbDispatcher){
         db.postDAO().insert(items)
-        return true
+        true
     }
 
-    override suspend fun createOrUpdate(item: PostEntity): Boolean {
+    override suspend fun createOrUpdate(item: PostEntity): Boolean = withContext(dbDispatcher){
         db.postDAO().update(item)
-        return true
+        true
     }
 
     override fun getAllAndObserve(): Flow<List<PostEntity>> {
@@ -52,25 +54,25 @@ class PostLocalSourceImp @Inject constructor(private val db: AppDB) : PostLocalS
             .flowOn(Dispatchers.Default)
     }
 
-    override fun getAll(): List<PostEntity> {
-        return db.postDAO().getAll()
+    override suspend fun getAll(): List<PostEntity> = withContext(dbDispatcher) {
+        db.postDAO().getAll()
     }
 
-    override fun getById(id: String): Optional<PostEntity> {
-        return db.postDAO().getById(id)?.let {
+    override suspend fun getById(id: String): Optional<PostEntity> = withContext(dbDispatcher) {
+        db.postDAO().getById(id)?.let {
             Optional.Some(it)
         } ?: Optional.None
     }
 
-    override suspend fun deleteById(id: String): Int {
-        return db.postDAO().delete(id)
+    override suspend fun deleteById(id: String): Int = withContext(dbDispatcher) {
+       db.postDAO().delete(id)
     }
 
-    override suspend fun getByName(itemTitle: String): Int {
-        return db.postDAO().getByTitle(itemTitle)
+    override suspend fun getByName(itemTitle: String): Int = withContext(dbDispatcher) {
+        db.postDAO().getByTitle(itemTitle)
     }
 
-    override suspend fun deleteAll() : Int {
-        return db.postDAO().deleteAll()
+    override suspend fun deleteAll(): Int = withContext(dbDispatcher) {
+        db.postDAO().deleteAll()
     }
 }

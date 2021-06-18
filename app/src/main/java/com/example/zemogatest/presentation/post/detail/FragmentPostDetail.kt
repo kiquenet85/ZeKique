@@ -31,6 +31,7 @@ class FragmentPostDetail : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         viewModel.setSelectedPost(requireArguments().getParcelable(EXTRA_SELECTED_POST))
+        requireActivity().invalidateOptionsMenu()
         viewModel.loadComments(true)
     }
 
@@ -60,7 +61,8 @@ class FragmentPostDetail : Fragment() {
         binding?.fragmentPostDetailUserPhone?.text = viewModel.post?.userUI?.phone ?: EMPTY_STRING
         binding?.fragmentPostDetailUserWebsite?.text =
             viewModel.post?.userUI?.website ?: EMPTY_STRING
-        binding?.fragmentPostDetailCommentsTitle?.text = getString(R.string.post_detail_comments_title)
+        binding?.fragmentPostDetailCommentsTitle?.text =
+            getString(R.string.post_detail_comments_title)
     }
 
     private fun setUpComments() {
@@ -95,13 +97,30 @@ class FragmentPostDetail : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.favorite_menu, menu)
+        if (viewModel.post?.favorite == true) {
+            menu.findItem(R.id.action_favorite)?.icon =
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_favorite_24, null)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_favorite -> {
-                item.icon =
-                    ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_favorite_24, null)
+                item.icon = if (viewModel.post?.favorite == true) {
+                    viewModel.addPostAsFavorite(false)
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        R.drawable.ic_baseline_favorite_unselect_24,
+                        null
+                    )
+                } else {
+                    viewModel.addPostAsFavorite(true)
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        R.drawable.ic_baseline_favorite_24,
+                        null
+                    )
+                }
                 return true
             }
         }

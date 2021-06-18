@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UpdatePostUC @Inject constructor(
+class UpdateSeenPostUC @Inject constructor(
     private val postRepository: PostRepository
 ) {
 

@@ -14,13 +14,13 @@ interface PostLocalSource {
 
     fun getAllAndObserve(): Flow<List<PostEntity>>
 
-    fun getAll(): List<PostEntity>
+    suspend fun getAll(): List<PostEntity>
 
-    fun getById(id: String): Optional<PostEntity>
+    suspend fun getById(id: String): Optional<PostEntity>
 
     suspend fun deleteById(id: String): Int
 
     suspend fun getByName(itemTitle: String): Int
 
-    suspend fun deleteAll() : Int
+    suspend fun deleteAll(): Int
 }
